@@ -1,0 +1,172 @@
+# -*- org-export-babel-evaluate: nil -*-
+
+* READLOG
+[2018-01-29 Mon 12:37]
+
+| Date             | Page |
+|------------------+------|
+| <2018-01-29 Mon> |   91 |
+
+* Chapter 0
+
+The /Cartesian product/ of two sets $A$ and $B$ is the set of all pair
+$(a, b)$ where $a \in A$ and $b \in B$.
+
+We know the definition of a function as a rule that assings to each
+element in a set $D$ a possible output. But formally, a function is a
+(possibly infinite) set of pair $(a, b)$ no two of which share the
+same first entry.
+
+Probability terminology:
+
+- Experiments
+- Outcomes
+- Event (a set of outcomes)
+
+
+Fundamental Principle of Probability Theory: The probability of an
+event is the sum of probabilities of the outcomes making up the event.
+
+I find it amusing that I was just reading about Kerkchoff's principle
+in another book and I found the same concept in this one. Basically an
+example is posed to us, where two members of the british army want to
+send an 1 bit encrypted message indicating whether an attack should
+take place or not.
+
+#+ATTR_LATEX: :width 12cm
+[[file:README.org_imgs/20180128_215426_21494zLe.png]]
+
+Kerkchoff's principle is broken because there is no uniform
+distribution, i.e.  if the ciphertext is a 1, then it is more likely
+than the original message is a 0. Conversely, is the ciphertext is a
+0, then it is more likely that the original message was a 1. In this
+case, a spy that managed to look at the encryption table, even if he
+did not know the key, would have better odds of guessing what the
+original message was than pure luck. The issue is resolved by taking
+out a key (or adding one, I think).
+
+#+ATTR_LATEX: :width 12cm
+[[file:README.org_imgs/20180128_215732_21494Ngq.png]]
+
+Pythons comprehensions are expressions that let you build collections
+from other collections.
+
+
+* Chapter 1: The Field
+Apparently, if we consider complex numbers in a plane. Multiplying by
+$i$ is the same as rotating by 90 degrees.
+
+Any rotation can be represented as complex multiplication.
+
+Consider
+
+#+ATTR_LATEX: :width 8cm
+[[file:README.org_imgs/20180129_120537_21494a_M.png]]
+
+where the circle is the unit circle.
+
+$z' = \frac{1}{r}z$. Euler's formula tells us that $z' = e^{\theta
+i}$. We therefore obtain $z = re^{\theta i}$
+
+
+
+
+** Task 1.4.10
+#+BEGIN_QUOTE
+We have provided a module image with a procedure file2image(filename)
+that reads in an image stored in a file in the .png format. Import
+this procedure and invoke it, providing as argument the name of a file
+containing an image in this format, assigning the returned value to
+variable data. An example grayscale image, img01.png, is available for
+download.  The value of data is a list of lists, and data[y][x] is the
+intensity of pixel (x,y). Pixel (0,0) is at the bottom-left of the
+image, and pixel (width-1, height-1) is at the top-right. The
+intensity of a pixel is a number between 0 (black) and 255 (white).
+Use a comprehension to assign to a list pts the set of complex numbers
+x + yi such that the image intensity of pixel (x, y) is less than 120,
+and plot the list pts.
+#+END_QUOTE
+
+#+BEGIN_SRC python :session *pyvenv*
+from plotting import plot
+import image
+data = image.file2image('img01.png')
+height = len(data)
+width = len(data[0]) # Size should be equal for each sublist
+pts = [ (x/width*4)+(((height - y)/height*4)*1j) for y in range(height) for x in range(width) if data[y][x][0] < 120 ]
+plot(pts, 4)
+#+END_SRC
+
+** Task 1.4.11
+#+BEGIN_QUOTE
+Write a Python procedure f(z) that takes as argument a complex number
+z so that when f(z) is applied to each of the complex numbers in S,
+the set of resulting numbers is centered at the origin. Write a
+comprehension in terms of S and f whose value is the set of translated
+points, and plot the value.
+#+END_QUOTE
+
+#+BEGIN_SRC python :session *pyvenv*
+def f(z):
+    return z - (2+2j)
+
+plot([ f(p) for p in pts ], 4)
+#+END_SRC
+
+** Taks 1.4.17
+#+BEGIN_QUOTE
+From the module math, import the definitions e and pi. Let n be the
+integer 20. Let w be the complex number e2πi/n. Write a comprehension
+yielding the list consisting of w0, w1, w2, . . . , wn−1. Plot these
+complex numbers.
+#+END_QUOTE
+
+#+BEGIN_SRC python :session *pyvenv*
+from math import e, pi
+
+n = 20
+w = e**(2*pi*1j/n)
+
+plot([w**i for i in range(n)], 4)
+#+END_SRC
+
+** Task 1.4.18
+#+BEGIN_EXAMPLE
+Recall from Task 1.4.1 the set S of complex numbers. Write a
+comprehension whose value is the set consisting of rotations by π/4 of
+the elements of S. Plot the value of this comprehension.
+#+END_EXAMPLE
+
+#+BEGIN_SRC python :session *pyvenv*
+S = { 2+2j, 3+2j, 1.75+1j, 2+1j,
+      2.25+1j, 2.5+1j, 2.75+1j, 3+1j, 3.25+1j }
+     
+plot([ z * e **(pi/4*1j) for z in S ], 4)
+#+END_SRC
+
+** Task 1.4.19
+#+BEGIN_EXAMPLE
+Similarly, recall from Task 1.4.10 the list pts of points derived from
+an image. Plot the rotation by π/4 of the complex numbers comprising
+pts.
+#+END_EXAMPLE
+
+#+BEGIN_SRC python :session *pyvenv*
+plot([ z * e **(pi/4*1j) for z in pts], 4)
+#+END_SRC
+
+** Task 1.4.20
+#+BEGIN_EXAMPLE
+Write a comprehension that transforms the set pts by translating it so
+the image is centered, then rotating it by π/4, then scaling it by
+half. Plot the result.
+#+END_EXAMPLE
+
+#+BEGIN_SRC python :session *pyvenv*
+plot([ f(pt) * 0.5 * e**(pi/4*1j) for pt in pts ], 4)
+#+END_SRC
+
+
+* TODO
+Investigate about the Karatsuba algorithm which the books says is used
+by python for multiplication of long numbers.
