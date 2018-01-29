@@ -131,11 +131,11 @@ plot([w**i for i in range(n)], 4)
 #+END_SRC
 
 ** Task 1.4.18
-#+BEGIN_EXAMPLE
+#+BEGIN_QUOTE
 Recall from Task 1.4.1 the set S of complex numbers. Write a
 comprehension whose value is the set consisting of rotations by π/4 of
 the elements of S. Plot the value of this comprehension.
-#+END_EXAMPLE
+#+END_QUOTE
 
 #+BEGIN_SRC python :session *pyvenv*
 S = { 2+2j, 3+2j, 1.75+1j, 2+1j,
@@ -145,22 +145,22 @@ plot([ z * e **(pi/4*1j) for z in S ], 4)
 #+END_SRC
 
 ** Task 1.4.19
-#+BEGIN_EXAMPLE
+#+BEGIN_QUOTE
 Similarly, recall from Task 1.4.10 the list pts of points derived from
 an image. Plot the rotation by π/4 of the complex numbers comprising
 pts.
-#+END_EXAMPLE
+#+END_QUOTE
 
 #+BEGIN_SRC python :session *pyvenv*
 plot([ z * e **(pi/4*1j) for z in pts], 4)
 #+END_SRC
 
 ** Task 1.4.20
-#+BEGIN_EXAMPLE
+#+BEGIN_QUOTE
 Write a comprehension that transforms the set pts by translating it so
 the image is centered, then rotating it by π/4, then scaling it by
 half. Plot the result.
-#+END_EXAMPLE
+#+END_QUOTE
 
 #+BEGIN_SRC python :session *pyvenv*
 plot([ f(pt) * 0.5 * e**(pi/4*1j) for pt in pts ], 4)
