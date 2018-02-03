@@ -69,6 +69,9 @@ $z' = \frac{1}{r}z$. Euler's formula tells us that $z' = e^{\theta
 i}$. We therefore obtain $z = re^{\theta i}$
 
 
+The conjugate of a complex number $z$, written $\bar z$ is defined as
+$z$.real - $z$.imag. We have the relation $\vert z \vert^2 = z \cdot
+\bar z$.
 
 
 ** Task 1.4.10
@@ -96,6 +99,8 @@ width = len(data[0]) # Size should be equal for each sublist
 pts = [ (x/width*4)+(((height - y)/height*4)*1j) for y in range(height) for x in range(width) if data[y][x][0] < 120 ]
 plot(pts, 4)
 #+END_SRC
+
+#+results:
 
 ** Task 1.4.11
 #+BEGIN_QUOTE
@@ -166,6 +171,65 @@ half. Plot the result.
 plot([ f(pt) * 0.5 * e**(pi/4*1j) for pt in pts ], 4)
 #+END_SRC
 
+** Problem 1.5.1
+#+BEGIN_QUOTE
+An 11-symbol message has been encrypted as follows. Each symbol is
+represented by a number between 0 and 26 (A → 0,B → 1,...,Z → 25,space
+→ 26). Each number is represented by a five-bit binary sequence (0 →
+00000, 1 → 00001, ..., 26 → 11010). Finally, the resulting sequence of
+55 bits is encrypted using a flawed version of the one-time pad: the
+key is not 55 random bits but 11 copies of the same sequence of 5
+random bits. The cyphertext is:
+
+10101 00100 10101 01011 11001 00011 01011 10101 00100 11001 11010
+E     v     e           i     s           e     v     i     l
+
+11101 11101 11101 11101 11101 11101 11101
+
+key = 00100
+
+Try to find the plaintext.
+#+END_QUOTE
+
+| Cipher | Times it ocurrs |
+|  10101 |               3 |
+|  00100 |               2 |
+|  01011 |               2 |
+|  11001 |               2 |
+|  00011 |               1 |
+|  11010 |               1 |
+
+
+** Problem 1.7.1
+#+BEGIN_QUOTE
+my_filter(L, num)
+input: list of numbers and a positive integer.
+output: list of numbers not containing a multiple of num.
+example: given list = [1,2,4,5,7] and num = 2, return [1,5,7].
+#+END_QUOTE
+
+#+BEGIN_SRC python :session *pyvenv*
+def my_filter(L, num):
+    return [ n for n in L if n % num != 0]
+
+my_filter([1, 2, 4, 5, 7], 2)
+#+END_SRC
+
+#+results:
+| 1 | 5 | 7 |
+
+** Problem 1.7.2
+#+BEGIN_QUOTE
+my_lists(L)
+input: list L of non-negative integers.
+output: a list of lists: for every element x in L create a list containing 1, 2, . . . , x.
+example: given [1,2,4] return [[1],[1,2],[1,2,3,4]]. example: given [0] return [[]].
+#+END_QUOTE
+
+#+BEGIN_SRC python :session *pyvenv*
+def my_lists(L):
+    return [ range(1, n+1) for n in L ]
+#+END_SRC
 
 * TODO
 Investigate about the Karatsuba algorithm which the books says is used
